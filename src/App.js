@@ -2,20 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading) {
-  setLoading(true); // Set loading to true
+  setLoading(true); 
   try {
-    JSON.parse(inputVal); // Validate JSON input
+    JSON.parse(inputVal); 
   } catch (e) {
     setError("Invalid JSON format.");
-    setresponseAns(""); // Clear previous response
-    setLoading(false); // Set loading to false
+    setresponseAns("");
+    setLoading(false);
     return;
   }
 
   if (!inputVal.trim()) {
     setError("Input cannot be empty.");
-    setresponseAns(""); // Clear previous response
-    setLoading(false); // Set loading to false
+    setresponseAns(""); 
+    setLoading(false); 
     return;
   }
 
@@ -47,7 +47,7 @@ function handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading) {
 }
 
 function App() {
-  const urlpost = "http://localhost:3000/bfhl/post";
+  const urlpost = "https://bajaj-backend-ap0p.onrender.com/";
   const [inputVal, setInputVal] = useState("");
   const [responseAns, setresponseAns] = useState("");
   const [error, setError] = useState("");
