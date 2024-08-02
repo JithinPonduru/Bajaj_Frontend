@@ -33,31 +33,31 @@ function handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading) {
       return response.json();
     })
     .then(data => {
-      setresponseAns(JSON.stringify(data, null, 2)); // Format JSON response
-      setError(""); // Clear any previous errors
+      setresponseAns(JSON.stringify(data, null, 2));
+      setError("");
     })
     .catch(error => {
       setError('Failed to fetch data. ' + error.message);
-      setresponseAns(""); // Clear previous response
+      setresponseAns("");
       console.error('Error:', error);
     })
     .finally(() => {
-      setLoading(false); // Set loading to false
+      setLoading(false); 
     });
 }
 
 function App() {
-  const urlpost = "https://bajaj-backend-ap0p.onrender.com/";
+  const urlpost = "https://bajaj-backend-ap0p.onrender.com/bfhl/post";
   const [inputVal, setInputVal] = useState("");
   const [responseAns, setresponseAns] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // New state for loading
+  const [loading, setLoading] = useState(false); 
   const ansRef = useRef(null);
 
   useEffect(() => {
     if (ansRef.current) {
-      ansRef.current.style.height = 'auto'; // Reset height
-      ansRef.current.style.height = `${ansRef.current.scrollHeight}px`; // Adjust height based on content
+      ansRef.current.style.height = 'auto'; 
+      ansRef.current.style.height = `${ansRef.current.scrollHeight}px`; 
     }
   }, [responseAns]);
 
