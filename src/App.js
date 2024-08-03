@@ -1,30 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-function handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading) {
+function handleSubmit(urlpost, setResponseAns, setError, inputVal, setLoading) {
   setLoading(true); 
+
   try {
-    JSON.parse(inputVal); 
+    JSON.parse(inputVal); // Validate JSON format
   } catch (e) {
     setError("Invalid JSON format.");
-    setresponseAns("");
+    setResponseAns("");
     setLoading(false);
     return;
   }
 
   if (!inputVal.trim()) {
     setError("Input cannot be empty.");
-    setresponseAns(""); 
+    setResponseAns(""); 
     setLoading(false); 
     return;
   }
 
-  return fetch(urlpost, {
+  fetch(urlpost, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ data: inputVal }),
+    body: JSON.stringify({ data: JSON.parse(inputVal) }),
   })
     .then(response => {
       if (!response.ok) {
@@ -33,31 +34,31 @@ function handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading) {
       return response.json();
     })
     .then(data => {
-      setresponseAns(JSON.stringify(data, null, 2));
-      setError("");
+      setResponseAns(JSON.stringify(data, null, 2));
+      setError(""); 
     })
     .catch(error => {
       setError('Failed to fetch data. ' + error.message);
-      setresponseAns("");
+      setResponseAns("");
       console.error('Error:', error);
     })
     .finally(() => {
-      setLoading(false); 
+      setLoading(false);
     });
 }
 
 function App() {
-  const urlpost = "https://bajaj-backend-ap0p.onrender.com/bfhl/post";
+  const urlpost = "https://backend-1-c6as.onrender.com/bfhl"; // Adjusted URL
   const [inputVal, setInputVal] = useState("");
-  const [responseAns, setresponseAns] = useState("");
+  const [responseAns, setResponseAns] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const ansRef = useRef(null);
 
   useEffect(() => {
     if (ansRef.current) {
-      ansRef.current.style.height = 'auto'; 
-      ansRef.current.style.height = `${ansRef.current.scrollHeight}px`; 
+      ansRef.current.style.height = 'auto';
+      ansRef.current.style.height = `${ansRef.current.scrollHeight}px`;
     }
   }, [responseAns]);
 
@@ -66,7 +67,7 @@ function App() {
   };
 
   const handleClick = () => {
-    handleSubmit(urlpost, setresponseAns, setError, inputVal, setLoading);
+    handleSubmit(urlpost, setResponseAns, setError, inputVal, setLoading);
   };
 
   return (
